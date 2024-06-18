@@ -14,7 +14,11 @@ from functools import partial
 import torch
 import torch.nn as nn
 
-from custom_timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
+#from custom_timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
+
+IMAGENET_DEFAULT_MEAN = (0.485, 0.456, 0.406)
+IMAGENET_DEFAULT_STD = (0.229, 0.224, 0.225)
+
 from .helpers import build_model_with_cfg, checkpoint_seq
 from .layers import PatchEmbed, Mlp, DropPath, trunc_normal_
 from .registry import register_model
