@@ -17,7 +17,9 @@ from functools import partial
 import torch
 import torch.nn as nn
 
-from custom_timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
+#from custom_timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
+IMAGENET_DEFAULT_MEAN = (0.485, 0.456, 0.406)
+IMAGENET_DEFAULT_STD = (0.229, 0.224, 0.225)
 from .helpers import named_apply, build_model_with_cfg, checkpoint_seq
 from .layers import trunc_normal_, SelectAdaptivePool2d, DropPath, ConvMlp, Mlp, LayerNorm2d, LayerNorm, \
     create_conv2d, get_act_layer, make_divisible, to_ntuple
