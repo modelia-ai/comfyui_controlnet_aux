@@ -12,7 +12,11 @@ Consider all of the models definitions here as experimental WIP and likely to ch
 
 Hacked together by / copyright Ross Wightman, 2021.
 """
-from custom_timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
+#from custom_timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
+
+IMAGENET_DEFAULT_MEAN = (0.485, 0.456, 0.406)
+IMAGENET_DEFAULT_STD = (0.229, 0.224, 0.225)
+
 from .byobnet import ByoBlockCfg, ByoModelCfg, ByobNet, interleave_blocks
 from .helpers import build_model_with_cfg
 from .registry import register_model
