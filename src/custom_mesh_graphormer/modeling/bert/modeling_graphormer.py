@@ -13,7 +13,7 @@ import code
 import torch
 from torch import nn
 from .modeling_bert import BertPreTrainedModel, BertEmbeddings, BertPooler, BertIntermediate, BertOutput, BertSelfOutput
-import custom_mesh_graphormer.modeling.data.config as cfg
+# import custom_mesh_graphormer.modeling.data.config as cfg  ## unsued and couses error
 from custom_mesh_graphormer.modeling._gcnn import GraphConvolution, GraphResBlock
 from .modeling_utils import prune_linear_layer
 LayerNormClass = torch.nn.LayerNorm
