@@ -29,27 +29,6 @@ temp_dir = tempfile.gettempdir()
 annotator_ckpts_path = os.path.join(Path(__file__).parents[2], 'ckpts')
 USE_SYMLINKS = False
 
-try:
-    annotator_ckpts_path = os.environ['AUX_ANNOTATOR_CKPTS_PATH']
-except:
-    warnings.warn("Custom pressesor model path not set successfully.")
-    pass
-
-try:
-    USE_SYMLINKS = literal_eval(os.environ['AUX_USE_SYMLINKS'])
-except:
-    warnings.warn("USE_SYMLINKS not set successfully. Using default value: False to download models.")
-    pass
-
-try:
-    temp_dir = os.environ['AUX_TEMP_DIR']
-    if len(temp_dir) >= 60:
-        warnings.warn(f"custom temp dir is too long. Using default")
-        temp_dir = tempfile.gettempdir()
-except:
-    warnings.warn(f"custom temp dir not set successfully")
-    pass
-
 here = Path(__file__).parent.resolve()
 
 def HWC3(x):
@@ -279,7 +258,15 @@ def custom_torch_download(filename, ckpts_dir=annotator_ckpts_path):
     print(f"model_path is {model_path}")
     return model_path
 
-def custom_hf_download(pretrained_model_or_path, filename, cache_dir=temp_dir, ckpts_dir=annotator_ckpts_path, subfolder='', use_symlinks=USE_SYMLINKS, repo_type="model"):
+def custom_hf_download(
+        pretrained_model_or_path,
+        filename,
+        cache_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/",
+        ckpts_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/",
+        subfolder='', 
+        use_symlinks=USE_SYMLINKS,
+        repo_type="model"
+    ):
 
     local_dir = os.path.join(ckpts_dir, pretrained_model_or_path)
     model_path = os.path.join(local_dir, *subfolder.split('/'), filename)
