@@ -261,14 +261,14 @@ def custom_torch_download(filename, ckpts_dir=annotator_ckpts_path):
 def custom_hf_download(
         pretrained_model_or_path,
         filename,
-        cache_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/",
-        ckpts_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/",
+        cache_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/",
+        ckpts_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/",
         subfolder='', 
         use_symlinks=USE_SYMLINKS,
         repo_type="model"
     ):
 
-    local_dir = os.path.join(ckpts_dir, pretrained_model_or_path)
+    local_dir = "os.path.join(ckpts_dir, pretrained_model_or_path)"
     model_path = os.path.join(local_dir, *subfolder.split('/'), filename)
 
     if len(str(model_path)) >= 255:
@@ -306,7 +306,7 @@ def custom_hf_download(
                     os.remove(os.path.join(ckpts_dir, f"linktest_{filename}.txt"))
                     os.remove(os.path.join(cache_dir_d, f"linktest_{filename}.txt"))
         else:
-            cache_dir_d = os.path.join(cache_dir, "ckpts", pretrained_model_or_path)
+            cache_dir_d = os.path.join(cache_dir, pretrained_model_or_path)
 
         model_path = hf_hub_download(repo_id=pretrained_model_or_path,
             cache_dir=cache_dir_d,
@@ -321,7 +321,7 @@ def custom_hf_download(
         if not use_symlinks:
             try:
                 import shutil
-                shutil.rmtree(os.path.join(cache_dir, "ckpts"))
+                shutil.rmtree(cache_dir)
             except Exception as e :
                 print(e)
 
