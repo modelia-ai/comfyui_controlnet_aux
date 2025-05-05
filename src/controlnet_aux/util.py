@@ -268,7 +268,7 @@ def custom_hf_download(
         repo_type="model"
     ):
 
-    local_dir = "os.path.join(ckpts_dir, pretrained_model_or_path)"
+    local_dir = os.path.join(ckpts_dir, pretrained_model_or_path)
     model_path = os.path.join(local_dir, *subfolder.split('/'), filename)
 
     if len(str(model_path)) >= 255:
