@@ -261,8 +261,8 @@ def custom_torch_download(filename, ckpts_dir=annotator_ckpts_path):
 def custom_hf_download(
         pretrained_model_or_path,
         filename,
-        cache_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/",
-        ckpts_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/",
+        cache_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/",
+        ckpts_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/",
         subfolder='', 
         use_symlinks=USE_SYMLINKS,
         repo_type="model"
@@ -275,38 +275,8 @@ def custom_hf_download(
         warnings.warn(f"Path {model_path} is too long, \n please change annotator_ckpts_path in config.yaml")
 
     if not os.path.exists(model_path):
-        print(f"Failed to find {model_path}.\n Downloading from huggingface.co")
-        print(f"cacher folder is {cache_dir}, you can change it by custom_tmp_path in config.yaml")
-        if use_symlinks:
-            cache_dir_d = constants.HF_HUB_CACHE    # use huggingface newer env variables `HF_HUB_CACHE`
-            if cache_dir_d is None:
-                import platform
-                if platform.system() == "Windows":
-                    cache_dir_d = os.path.join(os.getenv("USERPROFILE"), ".cache", "huggingface", "hub")
-                else:
-                    cache_dir_d = os.path.join(os.getenv("HOME"), ".cache", "huggingface", "hub")
-            try:
-                # test_link
-                Path(cache_dir_d).mkdir(parents=True, exist_ok=True)
-                Path(ckpts_dir).mkdir(parents=True, exist_ok=True)
-                (Path(cache_dir_d) / f"linktest_{filename}.txt").touch()
-                # symlink instead of link avoid `invalid cross-device link` error.
-                os.symlink(os.path.join(cache_dir_d, f"linktest_{filename}.txt"), os.path.join(ckpts_dir, f"linktest_{filename}.txt"))
-                print("Using symlinks to download models. \n",\
-                      "Make sure you have enough space on your cache folder. \n",\
-                      "And do not purge the cache folder after downloading.\n",\
-                      "Otherwise, you will have to re-download the models every time you run the script.\n",\
-                      "You can use USE_SYMLINKS: False in config.yaml to avoid this behavior.")
-            except:
-                print("Maybe not able to create symlink. Disable using symlinks.")
-                use_symlinks = False
-                cache_dir_d = os.path.join(cache_dir, "ckpts", pretrained_model_or_path)
-            finally:    # always remove test link files
-                with suppress(FileNotFoundError):
-                    os.remove(os.path.join(ckpts_dir, f"linktest_{filename}.txt"))
-                    os.remove(os.path.join(cache_dir_d, f"linktest_{filename}.txt"))
-        else:
-            cache_dir_d = os.path.join(cache_dir, pretrained_model_or_path)
+
+        cache_dir_d = os.path.join(cache_dir, pretrained_model_or_path)
 
         model_path = hf_hub_download(repo_id=pretrained_model_or_path,
             cache_dir=cache_dir_d,
@@ -318,12 +288,7 @@ def custom_hf_download(
             etag_timeout=100,
             repo_type=repo_type
         )
-        if not use_symlinks:
-            try:
-                import shutil
-                shutil.rmtree(cache_dir)
-            except Exception as e :
-                print(e)
+
 
     print(f"model_path is {model_path}")
 
