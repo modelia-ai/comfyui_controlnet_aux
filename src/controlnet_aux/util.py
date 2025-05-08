@@ -261,8 +261,8 @@ def custom_torch_download(filename, ckpts_dir=annotator_ckpts_path):
 def custom_hf_download(
         pretrained_model_or_path,
         filename,
-        cache_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/",
-        ckpts_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/",
+        cache_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/",
+        ckpts_dir="ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/",
         subfolder='', 
         use_symlinks=USE_SYMLINKS,
         repo_type="model"
